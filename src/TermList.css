@@ -1,0 +1,24 @@
+.term-list {
+    /* Сбрасываем стандартные стили списка */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+/* Описываем стили списка */
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+@keyframes appearance {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.term-list__item {
+    animation: appearance 500ms;
+}
