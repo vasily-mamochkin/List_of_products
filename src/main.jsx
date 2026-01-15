@@ -1,206 +1,7 @@
-// import './index.css';
-// import { createRoot } from 'react-dom/client';
-// import { TermList } from './TermList';
-
-// function saveTermList(terms) {
-//   localStorage.setItem("termList", JSON.stringify(terms));
-// }
-
-// function restoreTermList() {
-//   try {
-//     const rawTermList = localStorage.getItem("termList");
-//     if (!rawTermList) return [];
-//     return JSON.parse(rawTermList);
-//   } catch (error) {
-//     console.error("Ошибка при восстановлении терминов:", error);
-//     return []; // Возвращаем пустой массив при ошибке
-//   }
-// }
-
-// let terms = restoreTermList(); // Восстанавливаем термины при загрузке
-
-// function syncTermList() {
-//   saveTermList(terms);
-//   reactRoot.render(<TermList terms={terms} onDelete={deleteItem} />);
-// }
-
-// // Функция добавляющая новый термин (принимает на вход термин и его описание)
-// function addTerm(title, description) {
-//   terms.push({
-//     id: Date.now(),
-//     title,
-//     description,
-//   });
-//   // После добавления термина будем производить сортировку терминов по алфавиту
-//   terms.sort((term1, term2) => (term1.title < term2.title ? -1 : 1));
-//   syncTermList();
-// }
-
-// function deleteItem(id) {
-//   terms = terms.filter((term) => term.id !== id);
-//   syncTermList();
-// }
-
-// // Ссылка на элемент из JS с помощью метода getElementById
-// const descriptionList = document.getElementById("description-list");
-// const reactRoot = createRoot(descriptionList);
-
-// // ВАЖНО: выполняем начальный рендер с восстановленными терминами
-// syncTermList();
-
-// // Обработчик формы
-// const form = document.getElementById('add-description');
-// form.addEventListener('submit', (event) => {
-//   event.preventDefault();
-//   const title = form.elements['title'].value;
-//   const description = form.elements['description'].value;
-
-//   form.reset();
-//   addTerm(title, description);
-// });
-// ----------------------------------------------------------------------------------------------
-// import './index.css';
-// import { createRoot } from 'react-dom/client';
-// import { TermList } from './TermList';
-
-// // Отладочные логи — включаем/выключаем одной переменной
-// const DEBUG_MODE = true;
-
-// function debugLog(message, data = null) {
-//   if (DEBUG_MODE) {
-//     console.log(`[DEBUG] ${message}`, data || '');
-//   }
-// }
-
-// function saveTermList(terms) {
-//   try {
-//     localStorage.setItem("termList", JSON.stringify(terms));
-//     debugLog("Термины сохранены в localStorage", { count: terms.length });
-//   } catch (error) {
-//     console.error("Ошибка при сохранении в localStorage:", error);
-//   }
-// }
-
-// function restoreTermList() {
-//   try {
-//     const rawTermList = localStorage.getItem("termList");
-
-//     if (!rawTermList) {
-//       debugLog("localStorage пуст, возвращаем пустой массив");
-//       return [];
-//     }
-
-//     const parsedTerms = JSON.parse(rawTermList);
-//     debugLog("Термины восстановлены из localStorage", { count: parsedTerms.length });
-//     return parsedTerms;
-//   } catch (error) {
-//     console.error("Ошибка при восстановлении из localStorage:", error);
-//     alert("Обнаружены повреждённые данные в localStorage. Список терминов сброшен.");
-//     return [];
-//   }
-// }
-
-// let terms = restoreTermList();
-
-// function syncTermList() {
-//   saveTermList(terms);
-//   reactRoot.render(<TermList terms={terms} onDelete={deleteItem} />);
-//   debugLog("Компонент отрендерен с обновлёнными данными", { termsCount: terms.length });
-// }
-
-// // Валидация данных перед добавлением
-// function validateTermData(title, description) {
-//   const errors = [];
-
-//   if (!title || title.trim().length === 0) {
-//     errors.push("Поле 'Название термина' не может быть пустым");
-//   } else if (title.trim().length < 2) {
-//     errors.push("Название термина должно содержать минимум 2 символа");
-//   }
-
-//   if (!description || description.trim().length === 0) {
-//     errors.push("Поле 'Описание' не может быть пустым");
-//   } else if (description.trim().length < 10) {
-//     errors.push("Описание должно содержать минимум 10 символов");
-//   }
-
-//   return errors;
-// }
-
-// // Функция добавляющая новый термин (принимает на вход термин и его описание)
-// function addTerm(title, description) {
-//   debugLog("Попытка добавления нового термина", { title, description });
-
-//   // Валидация данных
-//   const validationErrors = validateTermData(title, description);
-
-//   if (validationErrors.length > 0) {
-//     debugLog("Валидация не пройдена", validationErrors);
-//     alert(`Ошибка добавления термина:\n${validationErrors.join('\n')}`);
-//     return false;
-//   }
-
-//   // Очищаем входные данные от лишних пробелов
-//   const cleanTitle = title.trim();
-//   const cleanDescription = description.trim();
-
-//   terms.push({
-//     id: Date.now(),
-//     title: cleanTitle,
-//     description: cleanDescription,
-//   });
-
-//   // После добавления термина производим сортировку терминов по алфавиту
-//   terms.sort((term1, term2) => (term1.title < term2.title ? -1 : 1));
-//   debugLog("Термин успешно добавлен и отсортирован", { newCount: terms.length });
-
-//   syncTermList();
-//   return true;
-// }
-
-// function deleteItem(id) {
-//   debugLog("Попытка удаления термина", { id });
-//   const termToDelete = terms.find(term => term.id === id);
-
-//   if (termToDelete) {
-//     terms = terms.filter((term) => term.id !== id);
-//     debugLog("Термин удалён", { deletedTitle: termToDelete.title, newCount: terms.length });
-//     syncTermList();
-//   } else {
-//     console.warn("Попытка удалить несуществующий термин с ID:", id);
-//   }
-// }
-
-// // Ссылка на элемент из JS с помощью метода getElementById
-// const descriptionList = document.getElementById("description-list");
-// const reactRoot = createRoot(descriptionList);
-
-// // Выполняем начальный рендер с восстановленными терминами
-// debugLog("Инициализация приложения", { initialTermsCount: terms.length });
-// syncTermList();
-
-// // Обработчик формы
-// const form = document.getElementById('add-description');
-// form.addEventListener('submit', (event) => {
-//   event.preventDefault();
-//   const title = form.elements['title'].value;
-//   const description = form.elements['description'].value;
-
-//   debugLog("Форма отправлена", { title, description });
-
-//   const success = addTerm(title, description);
-
-//   if (success) {
-//     form.reset();
-//     debugLog("Форма сброшена после успешного добавления");
-//   }
-// });
-// --------------------------------------------------------------------------------------------------------------
-
 import './index.css';
 import { createRoot } from 'react-dom/client';
-import { TermList } from './TermList';
-
+// import { TermList } from './TermList';
+import { App } from './App';
 // === НАСТРОЙКИ И ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ===
 
 // Флаг режима отладки — позволяет быстро включить/выключить все отладочные сообщения
@@ -273,11 +74,20 @@ let terms = restoreTermList();
  * 2. Перерисовывает компонент TermList с обновлёнными данными
  * @returns {void}
  */
+// function syncTermList() {
+//   saveTermList(terms);
+//   reactRoot.render(<TermList terms={terms} onDelete={deleteItem} />);
+//   debugLog("Компонент TermList отрендерен с обновлённым списком терминов", { termsCount: terms.length });
+// }
+// Обновляем функцию syncTermList — теперь она рендерит App
 function syncTermList() {
   saveTermList(terms);
-  reactRoot.render(<TermList terms={terms} onDelete={deleteItem} />);
-  debugLog("Компонент TermList отрендерен с обновлённым списком терминов", { termsCount: terms.length });
+  reactRoot.render(<App />);
 }
+
+const reactRoot = createRoot(document.getElementById('root'));
+reactRoot.render(<App />);
+
 
 // === ФУНКЦИИ УПРАВЛЕНИЯ ДАННЫМИ ===
 
@@ -379,7 +189,7 @@ function deleteItem(id) {
 const descriptionList = document.getElementById("description-list");
 
 // Создаём корень React-приложения — точка монтирования компонента
-const reactRoot = createRoot(descriptionList);
+// const reactRoot = createRoot(descriptionList);
 
 // ВАЖНО: выполняем начальный рендер с восстановленными из localStorage данными
 debugLog("Инициализация приложения завершена", { initialTermsCount: terms.length });
@@ -407,4 +217,7 @@ form.addEventListener('submit', (event) => {
   }
   // Если добавление не удалось, форма остаётся заполненной для исправления ошибок
 });
+
+// Экспортируем необходимые функции и данные для использования в других компонентах
+export { addTerm, deleteItem, terms, syncTermList };
 

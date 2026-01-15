@@ -1,19 +1,6 @@
 import { TermCard } from "./TermCard";
 import "./TermList.css";
-// Для переиспользования кода вместо его дублирования создадим переменную с массивом терминов.(удалим этот статичный список когда создадим переменную для сохранения списка терминов в main.jsx ) 
-// const terms = [
-//     {
-//         title: "React",
-//         description: "Библиотека для создания пользовательских интерфейсов",
-//     },
-//     {
-//         title: "React-компонент",
-//         description: "Функция, возвращающая React-элемент",   
-//     },
-//     {
-//         title: "Render", 
-//     },
-// ]
+
 // Компонент TermList обрабатывает входящий прор terms
 export const TermList =  ({ terms, onDelete }) => {
     return (
