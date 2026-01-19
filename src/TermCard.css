@@ -5,46 +5,46 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-
-.term-card__image-container {
-  width: 100%;
-  overflow: hidden;
-  border-radius: 16px;
-}
-
-.term-card__image {
-  width: 100%;
-  height: auto;
-  max-height: 200px;
-  object-fit: cover;
+  height: 300px; /* Фиксированная высота карточки */
+  min-height: 300px; /* Минимальная высота */
+  max-height: 300px; /* Максимальная высота */
+  box-sizing: border-box; /* Учитываем padding в общей ширине/высоте */
+  overflow: hidden; /* Скрываем переполнение контента */
 }
 
 .term-card__title {
   margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .term-card__description {
   margin: 0;
+  font-size: 14px;
+  flex: 1; /* Занимает всё доступное пространство */
+  overflow-y: auto; /* Прокрутка для длинного текста */
+  text-overflow: ellipsis; /* Обрезаем текст с многоточием */
 }
 
 .term-card_delete {
   background-color: #ff9999;
   border: none;
-  padding: 4px 8px;
+  padding: 8px 16px;
   border-radius: 4px;
-  width: fit-content;
   cursor: pointer;
-  align-self: flex-end;
+  align-self: center; /* Центрируем кнопку */
+  width: fit-content;
 }
 
-/* Стили для предварительного просмотра в форме */
-.image-preview {
-  margin-top: 10px;
+/* Стили для изображения */
+.term-card__image-container {
+  height: 120px; /* Фиксированная высота контейнера изображения */
+  overflow: hidden;
 }
 
-.preview-image {
-  max-width: 200px;
-  max-height: 150px;
-  border-radius: 8px;
+.term-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Сохраняем пропорции изображения */
 }
