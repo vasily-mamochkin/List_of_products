@@ -62,15 +62,17 @@ function validateTermData(title, description) {
   }
   if (!description || description.trim().length === 0) {
     errors.push("Поле 'Описание' не может быть пустым");
-  } else if (description.trim().length < 10) {
-    errors.push("Описание должно содержать минимум 10 символов");
+  } else if 
+  (description.trim().length < 2) {
+    errors.push("Описание должно содержать минимум 2 символа");
   }
   return errors;
 }
 
+
 function addTerm(termData) {
   debugLog("Запуск функции добавления нового термина", termData);
-  const { title, description, image } = termData;
+  const { title, description, discount, image } = termData; // Добавляем discount
   const validationErrors = validateTermData(title, description);
   if (validationErrors.length > 0) {
     debugLog("Валидация не пройдена — обнаружены ошибки", validationErrors);
@@ -83,6 +85,7 @@ function addTerm(termData) {
     id: Date.now(),
     title: cleanTitle,
     description: cleanDescription,
+    discount: discount, // Сохраняем скидку
     image: image
   });
   terms.sort((term1, term2) => (term1.title < term2.title ? -1 : 1));
@@ -90,6 +93,7 @@ function addTerm(termData) {
   syncTermList();
   return true;
 }
+
 
 function deleteItem(id) {
   debugLog("Запуск функции удаления термина", { id });

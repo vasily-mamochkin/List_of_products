@@ -9,6 +9,7 @@ export const TermList = ({ terms, onDelete }) => {
           <TermCard
             title={item.title}
             description={item.description}
+            discount={item.discount} // Добавляем передачу скидки
             image={item.image} // передаём изображение
             onDelete={onDelete}
             id={item.id}

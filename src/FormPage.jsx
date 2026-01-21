@@ -4,35 +4,37 @@ import './FormPage.css';
 export const FormPage = ({ onAdd }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [discount, setDiscount] = useState(''); // Новое состояние для скидки
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Создаём объект с данными термина, включая изображение
+    // Создаём объект с данными термина, включая скидку
     const termData = {
       title,
       description,
-      image: imagePreview // сохраняем base64-строку изображения
+      discount: discount ? parseFloat(discount) : null, // Сохраняем как число или null
+      image: imagePreview
     };
 
     if (onAdd(termData)) {
       // Сброс формы после успешного добавления
       setTitle('');
       setDescription('');
+      setDiscount(''); // Сброс поля скидки
       setImage(null);
       setImagePreview('');
     }
   };
 
-  // Обработчик выбора изображения
+  // Обработчик выбора изображения (остаётся без изменений)
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImage(file);
 
-      // Создаём предварительный просмотр изображения
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
@@ -65,6 +67,21 @@ export const FormPage = ({ onAdd }) => {
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+          />
+        </label>
+
+        {/* НОВОЕ ПОЛЕ: Скидка */}
+        <label className="form-field">
+          <span className="form-field__label">Цена до скидки</span>
+          <input
+            className="form-field__input"
+            type="number"
+            min="0"
+            max="100"
+            step="0.1"
+            placeholder="Например: 15"
+            value={discount}
+            onChange={(e) => setDiscount(e.target.value)}
           />
         </label>
 

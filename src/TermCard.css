@@ -1,50 +1,195 @@
-.term-card {
-  padding: 24px;
-  border-radius: 24px;
-  background-color: #f5f5f5;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  height: 300px; /* Фиксированная высота карточки */
-  min-height: 300px; /* Минимальная высота */
-  max-height: 300px; /* Максимальная высота */
-  box-sizing: border-box; /* Учитываем padding в общей ширине/высоте */
-  overflow: hidden; /* Скрываем переполнение контента */
+/* .term-card {
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 8px;
 }
 
-.term-card__title {
+.term-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.term-card__actions {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none; /* Отключаем взаимодействие, когда кнопка скрыта */
+/* }
+
+.term-card:hover .term-card__actions {
+  opacity: 1;
+  pointer-events: auto; /* Включаем взаимодействие при наведении */
+/* }
+
+.term-card_delete {
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.2s;
+}
+
+.term-card_delete:hover {
+  background-color: #cc0000;
+} */
+
+/* Остальные стили из вашего TermCard.css остаются без изменений */
+/* .term-card__content {
+  display: flex; */
+  /* justify-content: space-between; */
+  /* align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.term-card__description {
   margin: 0;
-  font-size: 18px;
+  font-size: 14px; */
+  /* flex: 1; */
+  /* overflow-y: auto;
+  text-overflow: ellipsis;
+}
+
+.term-card__discount {
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+  padding: 4px 8px;
+  background-color: #fff3cd;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.discount-value {
   font-weight: bold;
-  text-align: center;
+  color: #d94350;
+  text-decoration: line-through;
+}
+
+@media (max-width: 768px) {
+  .term-card__content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .term-card__discount {
+    align-self: flex-end;
+  }
+} */
+/* ---------------------------------------------------------------------  */
+
+.term-card {
+  position: relative;
+  transition: all 0.3s ease;
+  border-radius: 8px; /* Сохраняем скругление для всей карточки */
+  overflow: hidden; /* Обрезаем изображение по границам карточки */
+}
+
+.term-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Контейнер для изображения */
+.term-card__image-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Стили для изображения */
+.term-card__image {
+  width: 100%;
+  height: 200px; /* Фиксированная высота — задайте нужное значение */
+  object-fit: cover; /* Заполняем контейнер, обрезая края при необходимости */
+  display: block; /* Убираем лишний отступ под изображением */
+}
+
+/* Альтернатива: адаптивная высота */
+/*
+.term-card__image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+*/
+
+/* Остальные стили из вашего TermCard.css остаются без изменений */
+.term-card__actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.term-card:hover .term-card__actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.term-card_delete {
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background-color 0.2s;
+}
+
+.term-card_delete:hover {
+  background-color: #cc0000;
+}
+
+.term-card__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  padding: 16px; /* Отступы вокруг контента */
 }
 
 .term-card__description {
   margin: 0;
   font-size: 14px;
-  flex: 1; /* Занимает всё доступное пространство */
-  overflow-y: auto; /* Прокрутка для длинного текста */
-  text-overflow: ellipsis; /* Обрезаем текст с многоточием */
+  flex: 1;
+  overflow-y: auto;
+  text-overflow: ellipsis;
 }
 
-.term-card_delete {
-  background-color: #ff9999;
-  border: none;
-  padding: 8px 16px;
+.term-card__discount {
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+  padding: 4px 8px;
+  background-color: #fff3cd;
   border-radius: 4px;
-  cursor: pointer;
-  align-self: center; /* Центрируем кнопку */
-  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
-/* Стили для изображения */
-.term-card__image-container {
-  height: 120px; /* Фиксированная высота контейнера изображения */
-  overflow: hidden;
+.discount-value {
+  font-weight: bold;
+  color: #d94350;
+  text-decoration: line-through;
 }
 
 .term-card__image {
   width: 100%;
-  height: 100%;
-  object-fit: cover; /* Сохраняем пропорции изображения */
+  height: 200px;
+  object-fit: cover;
+  display: block;
 }
